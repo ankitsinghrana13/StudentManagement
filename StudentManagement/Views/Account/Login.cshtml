@@ -1,0 +1,165 @@
+﻿@{
+    Layout = "";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Student Management | Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            height: 100vh;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-wrapper {
+            width: 100%;
+            max-width: 400px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            padding: 40px;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+            .login-header h2 {
+                margin: 0;
+                color: #333;
+            }
+
+            .login-header p {
+                color: #777;
+                font-size: 14px;
+            }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+            .form-group label {
+                font-size: 14px;
+                color: #555;
+                margin-bottom: 6px;
+                display: block;
+            }
+
+            .form-group input {
+                width: 100%;
+                padding: 12px 14px;
+                border-radius: 6px;
+                border: 1px solid #ccc;
+                font-size: 14px;
+                transition: border 0.3s;
+            }
+
+                .form-group input:focus {
+                    outline: none;
+                    border-color: #667eea;
+                }
+
+        .btn-login {
+            width: 100%;
+            background: #667eea;
+            border: none;
+            color: #fff;
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+            .btn-login:hover {
+                background: #5a67d8;
+            }
+
+        .error-message {
+            background: #ffe5e5;
+            color: #d8000c;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 14px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .links {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+        }
+
+            .links a {
+                text-decoration: none;
+                font-size: 14px;
+                padding: 8px 14px;
+                border-radius: 6px;
+                color: white;
+                transition: opacity 0.3s;
+            }
+
+                .links a:hover {
+                    opacity: 0.85;
+                }
+
+        .create-user {
+            background: #38a169;
+        }
+
+        .user-list {
+            background: #e53e3e;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="login-wrapper">
+        <div class="login-header">
+            <h2>Student Management</h2>
+            <p>Login to continue</p>
+        </div>
+
+        @if (ViewBag.Error != null)
+        {
+            <div class="error-message">@ViewBag.Error</div>
+        }
+
+        <form asp-action="Login" method="post">
+            <div class="form-group">
+                <label>Email</label>
+                <input type="text" name="email" placeholder="Enter your email" required />
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" name="password" placeholder="Enter your password" required />
+            </div>
+
+            <button type="submit" class="btn-login">Login</button>
+        </form>
+
+        <div class="links">
+            <a asp-controller="Users" asp-action="Create" class="create-user">Create User</a>
+            <a asp-controller="Users" asp-action="UserLists" class="user-list">User List</a>
+        </div>
+    </div>
+
+</body>
+</html>

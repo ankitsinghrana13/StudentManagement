@@ -1,0 +1,109 @@
+﻿@using Microsoft.AspNetCore.Authorization
+@model IEnumerable<StudentManagement.Core.Entities.Student>
+@inject IAuthorizationService AuthorizationService
+@{
+    ViewData["Title"] = "Students";
+    Layout = "_Layout";
+}
+
+<h2>Students</h2>
+
+@if ((await AuthorizationService.AuthorizeAsync(User, "StudentCreate")).Succeeded)
+{
+    <a asp-action="Create" class="button">Add New Student</a>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Age</th>
+            <th>Course</th>
+            @if ((await AuthorizationService.AuthorizeAsync(User, "StudentEdit")).Succeeded
+                        || (await AuthorizationService.AuthorizeAsync(User, "StudentDelete")).Succeeded)
+            {
+                <th>Actions</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var student in Model)
+        {
+            <tr>
+                <td>@student.Name</td>
+                <td>@student.Email</td>
+                <td>@student.Age</td>
+                <td>@student.Course</td>
+                <td>
+                    @if ((await AuthorizationService.AuthorizeAsync(User, "StudentEdit")).Succeeded)
+                    {
+                        <a asp-action="Edit" asp-route-id="@student.Id" class="action-btn edit">Edit</a>
+                    }
+
+                    @if ((await AuthorizationService.AuthorizeAsync(User, "StudentDelete")).Succeeded)
+                    {
+                        <a asp-action="Delete" asp-route-id="@student.Id" class="action-btn delete">Delete</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<style>
+    .button {
+        display: inline-block;
+        padding: 10px 15px;
+        background-color: #4CAF50;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        margin-bottom: 15px;
+    }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+    }
+
+        .table th, .table td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+
+        .table th {
+            background-color: #f0f0f0;
+        }
+
+    .action-btn {
+        padding: 5px 10px;
+        border-radius: 3px;
+        text-decoration: none;
+        color: white;
+        margin-right: 5px;
+        font-size: 14px;
+    }
+
+        .action-btn.edit {
+            background-color: #2196F3;
+        }
+
+            .action-btn.edit:hover {
+                background-color: #0b7dda;
+            }
+
+        .action-btn.delete {
+            background-color: #f44336;
+        }
+
+            .action-btn.delete:hover {
+                background-color: #da190b;
+            }
+</style>

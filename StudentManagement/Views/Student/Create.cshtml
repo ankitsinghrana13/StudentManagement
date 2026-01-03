@@ -1,0 +1,70 @@
+﻿@model StudentManagement.Core.Entities.Student
+@{
+    ViewData["Title"] = "Create Student";
+    Layout = "_Layout";
+}
+
+<h2>Create New Student</h2>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <input asp-for="Name" placeholder="Name" required />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input asp-for="Email" placeholder="Email" required />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input asp-for="Age" placeholder="Age" type="number" required />
+        <span asp-validation-for="Age" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input asp-for="Course" placeholder="Course" required />
+        <span asp-validation-for="Course" class="text-danger"></span>
+    </div>
+    <button type="submit">Create</button>
+</form>
+
+<style>
+    form {
+        max-width: 500px;
+        margin: 20px auto;
+        background: white;
+        padding: 25px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+    .text-danger {
+        color: red;
+        font-size: 13px;
+    }
+</style>
