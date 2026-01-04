@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver
+    environment:
+      SA_PASSWORD: "ankit@123"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    volumes:
+      - sql_data:/var/opt/mssql
+
+  studentmanagement:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: studentmanagement
+    ports:
+      - "5005:80"
+    depends_on:
+      - sqlserver
+    environment:
+      DOTNET_RUNNING_IN_CONTAINER: "true"
+      ConnectionStrings__DefaultConnection: "Server=sqlserver,1433;Database=StudentDB;User Id=sa;Password=ankit@123;TrustServerCertificate=True;"
+
+volumes:
+  sql_data:

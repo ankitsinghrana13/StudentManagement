@@ -23,6 +23,9 @@ public class StudentController : Controller
     [Authorize(Policy = "StudentDashboard")]
     public async Task<IActionResult> StudentDashboard()
     {
+        var aef = User.Identity.Name;
+        var chc = HttpContext.User.Identity.IsAuthenticated;
+
         DashboardData result = new DashboardData();
 
         if (!_memoryCache.TryGetValue(StudentCacheKey, out DashboardData? studentsCount))
@@ -53,6 +56,7 @@ public class StudentController : Controller
     [Authorize(Policy = "StudentView")]
     public async Task<IActionResult> Index()
     {
+
 
         if (!_memoryCache.TryGetValue(StudentCacheKey, out List<Student> students))
         {
